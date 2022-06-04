@@ -1,0 +1,18 @@
+在java中需要去看一段java代码对应的汇编码，可以通过打印JIT汇编码来查看，需要通过jvm的一些参数配置：
+-XX:+UnlockDiagnosticVMOptions  -XX:+PrintAssembly
+此外，还需要专门的软件包的配合：hsdis-amd64.dylib（mac上为例）
+将hsdis-amd64.dylib复制到jdk目录下，这里以mac + jdk11为例，复制到如下目录：
+/Library/Java/JavaVirtualMachines/jdk-11.0.12.jdk/Contents/Home/lib/server
+
+配置好上面的环境后，就可以在idea中配置一段启动参数：-server -XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly -XX:+LogCompilation -XX:LogFile=dissemble.log
+
+运行后就会生成dissemble.log文件，这个文件中包含了程序的汇编码，以这里的TestC2BranchPrediction类为例子
+然后用专门的UI工具：jitWatch来打开dissemble.log文件，可以看到java源文件、bytecode以及汇编码
+jitWatch工具下载地址：https://github.com/AdoptOpenJDK/jitwatch
+clone项目后，用maven进行编译：mvn clean install
+编译后，就可以进入scripts目录，运行launchUI.sh文件，即可打开jitWatch软件，用jitWatch打开上面生成的dissemble.log文件即可
+
+
+运行命令：
+java -server -XX:+UnlockDiagnosticVMOptions -XX:+PrintInterpreter -XX:+LogCompilation -XX:LogFile=dissemble.log
+java -server -XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly -XX:+LogCompilation -XX:LogFile=live.log  TestC2BranchPrediction

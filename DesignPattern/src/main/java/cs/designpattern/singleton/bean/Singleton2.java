@@ -6,12 +6,12 @@ package cs.designpattern.singleton.bean;
  * 使用时创建单例对象
  */
 public class Singleton2 {
-    private static Singleton2 singleton;
+    private static volatile  Singleton2 singleton;
 
     private Singleton2(){
     }
 
-    public Singleton2 getInstance(){
+    public static Singleton2 getInstance(){
         if (singleton == null){
             synchronized (Singleton2.class){
                 if(singleton == null)
