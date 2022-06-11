@@ -12,9 +12,10 @@ public class Singleton2 {
     }
 
     public static Singleton2 getInstance(){
-        if (singleton == null){
+        Singleton2 temp = singleton;
+        if (temp == null){
             synchronized (Singleton2.class){
-                if(singleton == null)
+                if(temp == null)
                     singleton = new Singleton2();
             }
         }

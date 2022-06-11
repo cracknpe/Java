@@ -2,7 +2,6 @@ import java.util.Random;
 
 public class TestC2BranchPrediction {
     public static void main(String[] args) {
-        System.out.println(Singleton.getInstance());
         Random rand = new Random();
         for (int i = 0; i < 10000000L; i++) {
             int state = rand.nextInt(10);
@@ -21,6 +20,7 @@ public class TestC2BranchPrediction {
     }
 
     public static void conditionalBranch(boolean flagA, boolean flagB, boolean flagC) {
+        System.out.println(Singleton.getInstance());
         if (flagA) {
             marker("DO SOMETHING A");
         } else if (flagB) {
